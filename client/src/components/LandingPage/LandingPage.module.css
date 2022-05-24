@@ -1,0 +1,64 @@
+.landing h1{
+    display: inline-block;
+    color: #44d9e1;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9em;
+    text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+    
+    }
+    .landing h1:after {
+      content: attr(data-shadow);
+      position: absolute;
+      top: .06em; left: .06em;
+      z-index: -1;
+      text-shadow: none;
+      background-image:
+        linear-gradient(
+          45deg,
+          transparent 45%,
+          hsla(48,20%,90%,1) 45%,
+          hsla(48,20%,90%,1) 55%,
+          transparent 0
+          );
+      background-size: .05em .05em;
+      -webkit-text-fill-color: transparent;
+    
+      animation: shad-anim 15s linear infinite;
+      }
+  
+  @keyframes shad-anim {
+    0% {background-position: 0 0}
+    0% {background-position: 100% -100%}
+    }
+
+.landing {
+    color: red;
+    display: block;
+}
+
+.landing button {
+    background-color: #3cbec4;
+    border: 1px solid #2A8387;
+    width: 100px;
+    font-size: 17px;
+    line-height: 100%;
+    cursor: pointer;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    outline: 0;
+    padding: 11px 15px 12px;
+    text-align: center;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.landing button:hover {
+    background-color: #2A8387;
+}
+
+
+

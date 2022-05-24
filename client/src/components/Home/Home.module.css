@@ -1,0 +1,57 @@
+.linkCard{
+    display: inline-block;
+}
+
+.filters{
+    width: auto;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 5px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: #7FFFD4;
+    background: rgba(38, 0, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(38, 0, 255, 0.3);
+}
+
+.filters select{
+    border-radius: 10px;
+    border: 1px solid gray;
+    margin-left: 70px;
+    margin-right: 70px;
+    padding: 7px;
+    width: 170px;
+}
+
+.filters button{
+    background-color: #3cbec4;
+    border: 1px solid #2A8387;
+    font-size: 17px;
+    line-height: 100%;
+    margin-left: 70px;
+    margin-right: 70px;
+    cursor: pointer;
+    padding: 11px 15px 12px;
+    text-align: center;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    padding: 7px;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.filters button:hover{
+    background-color: #2A8387;
+}
+
+.filters :active{
+    color: gray;
+}

@@ -1,0 +1,51 @@
+.nav{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    text-decoration: none;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.nav{
+    color: white;
+    display: inline;
+}
+
+.paginado{
+    text-align: center;
+    padding: 0px;
+}
+
+.numero{
+    display: inline-block;
+    padding: 5px;
+    margin: 3px 3px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.numero a{
+    border: 1px solid #0c6b9a;
+    background-color: #00A1F1;
+    border-radius: 50%;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    width: 20px;
+    text-align: center;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.9);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.9);
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.9)
+}
+
+ .numero a:hover {
+	background:#037E8C;
+    color: lightgray;
+}
+
+.numero a:active {
+    -webkit-box-shadow: 0px 3px 5px 2px rgba(0,0,0,0.9);
+    -moz-box-shadow: 0px 3px 5px 2px rgba(0,0,0,0.9);
+    box-shadow: 0px 3px 5px 2px rgba(0,0,0,0.9)
+}
+
