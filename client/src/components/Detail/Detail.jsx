@@ -10,22 +10,10 @@ export default function Detail(props){
 
     useEffect(() => {
         dispatch(getDetail(props.match.params.id));
+        dispatch(getActivities());
     },[dispatch])
 
-    useEffect(() => {
-        dispatch(getActivities());
-    }, [dispatch]);
-
     const myCountry = useSelector((state) => state.detail)
-    const myActivities = useSelector((state) => state.activities)
-    const activities = [];
-
-    for (var i=0; i < myActivities.length; i++) {
-        for (var j=0; j < myActivities.length; j++) {
-        if(myCountry[0].activity[i] === myActivities[j].name){
-            activities.push(myActivities[j])
-        }}
-    }
     
 return (
     <div className={style.allDetail}>
@@ -41,11 +29,10 @@ return (
                 <h2>Area: {myCountry[0].area} km²</h2>
                 <h2>Poblacion: {myCountry[0].population}</h2>
                 <h3 className={style.title}>Actividades</h3>
-                {console.log(myCountry[0].activity)}
-                <div className={style.activity}>{activities.map(e => (
+                <div className={style.activity}>{myCountry[0].activity.map(e => (
                     <div className={style.card}>
                     <h3>{e.name+" "}</h3>
-                    <h3>Id: {e.id+" "}</h3>
+                    {/* <h3>Id: {e.id+" "}</h3> */}
                     <h3>Dificultad: {e.difficulty+" "}</h3>
                     <h3>Duracion: {e.duration+" "}hs</h3>
                     <h3>Estacion: {e.season+" "}</h3>

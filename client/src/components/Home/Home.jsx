@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getCountries, filterCountriesByContinent, filterCountriesByActivity, orderByName, getActivities } from '../../actions';
+import { getCountries, filterCountriesByContinent, filterCountriesByActivity, orderByName, getActivities, setFirstMount } from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import Paginado from '../Paginado/Paginado';
@@ -18,31 +18,44 @@ export default function Home() {
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
     const currentCountries = allCountries.slice(indexOfFirstCountries, indexOfLastCountries)
+    const firstMount = useSelector((state) => state.firstMount)
     const activities = useSelector((state) => state.activities)
+    const [filter, setFilter] = useState({
+        continent: "all",
+        activity: "desactivado",
+    });
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber)
     }
-
+ 
     useEffect(() => {
-        dispatch(getCountries());
-    }, [dispatch])
-
-    useEffect(() => {
-        dispatch(getActivities());
-    }, []);
+        async function func() {
+            if(firstMount) {
+            dispatch(getActivities());
+            dispatch(setFirstMount(false));
+            dispatch(getCountries());
+            
+        } else {
+            dispatch(filterCountriesByContinent(filter));
+            dispatch(getActivities());
+            }
+         }
+        func();
+    }, [dispatch, filter]);
 
     function handleClick(e) {
         e.preventDefault();
         dispatch(getCountries());
     }
 
-    function handleFilterContinent(e) {
-        dispatch(filterCountriesByContinent(e.target.value))
-    }
-
-    function handleFilterActivity(e) {
-        dispatch(filterCountriesByActivity(e.target.value))
+    function handleFilter(e) {
+        e.preventDefault();
+        setFilter({
+            ...filter,
+            [e.target.name]: e.target.value,
+        })
+        setCurrentPage(1);
     }
 
     function handleOrderName(e) {
@@ -51,6 +64,8 @@ export default function Home() {
         setCurrentPage(1);
         setOrden(`Ordenado ${e.target.value}`)
     }
+
+    const pageNumbers = []
 
     return (
         <div>
@@ -69,8 +84,8 @@ export default function Home() {
                         <option value='pob'>Poblacion Asc.</option>
                         <option value='pobdes'>Poblacion Des.</option>
                     </select>
-                    <select onChange={e => handleFilterContinent(e)}>
-                        <option value='All'>Todos los Continentes</option>
+                    <select name="continent" onChange={(e) => handleFilter(e)}>
+                        <option value='all'>Todos los Continentes</option>
                         <option value='Americas'>America</option>
                         <option value='Antarctic'>Antartida</option>
                         <option value='Africa'>Africa</option>
@@ -78,8 +93,9 @@ export default function Home() {
                         <option value='Europe'>Europa</option>
                         <option value='Oceania'>Oceania</option>
                     </select>
-                    <select onChange={e => handleFilterActivity(e)}>
-                    <option disabled value selected>Actividades</option>
+                    <select name="activity" onChange={(e) => handleFilter(e)}>
+                    <option value="desactivado">Actividades</option>
+                    <option value="all">Todas</option>
                         {activities.map((act) => (
                             <option value={act.name}>{act.name}</option>
                         ))}
@@ -97,11 +113,16 @@ export default function Home() {
                     })
                 }
             </div>
+            {/* <button onClick={() => paginado(currentPage -1)}>Previus</button> */}
             <Paginado
                 countriesPerPage={countriesPerPage}
                 allCountries={allCountries.length}
                 paginado={paginado}
             />
+            <button  onClick={() => paginado(currentPage +1)}>Next</button>
+            
+            {console.log(pageNumbers)} 
+            {console.log(currentPage)}
         </div>
     )
 }

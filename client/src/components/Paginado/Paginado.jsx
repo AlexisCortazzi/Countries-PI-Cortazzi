@@ -1,25 +1,56 @@
 import React from "react";
-import styles from "./Paginado.module.css"
+import s from "./Paginado.module.css"
+import { useSelector } from "react-redux";
 
 export default function Paginado ({countriesPerPage, allCountries, paginado}){
+    const pages = Math.ceil(allCountries/countriesPerPage)
     const pageNumbers = []
 
-    for (let i=0; i < Math.ceil(allCountries/countriesPerPage); i++){
-        pageNumbers.push(i+1)
+    const currentPage = useSelector((state) => state.currentPage);
+
+    for (let i=1; i <= pages; i++){
+        pageNumbers.push(i)
     }
 
     return(
-        <nav className={styles.nav}>
-            <ul className={styles.paginado}>
-                { pageNumbers &&
-                pageNumbers.map(number =>(
-                    <li className={styles.numero} key={number}>
-                    <a onClick={() => paginado(number)}>{number}</a>
-                    </li>
-                ))
-                }
-            </ul>
-        </nav>
+        <nav>
+      <h3>Pages</h3>
+      <ul>
+        <div className={s.paginado}>
+          {currentPage - 1 > 0 ? (
+            <p
+              onClick={() => paginado(currentPage - 1)}
+              className={s.next_previous}
+            >
+              previous
+            </p>
+          ) : null}
+          {pageNumbers &&
+            pageNumbers.map((number, i) => (
+              <li className="number" key={i}>
+                {number === currentPage ? (
+                  <button
+                    onClick={() => paginado(number)}
+                    className={s.current}
+                  >
+                    {number}
+                  </button>
+                ) : (
+                  <button onClick={() => paginado(number)}>{number}</button>
+                )}
+              </li>
+            ))}
+          {pages > currentPage ? (
+            <p
+              onClick={() => paginado(currentPage + 1)}
+              className={s.next_previous}
+            >
+              next
+            </p>
+          ) : null}
+        </div>
+      </ul>
+    </nav>
     )
 
 }

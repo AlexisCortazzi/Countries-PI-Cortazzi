@@ -21,7 +21,7 @@ const getAllCountries = async () => {
     let allCountries = await Country.findAll({
         include:{
             model: Activity,
-            attributes: ["name"],
+            attributes: ['name', 'difficulty', 'duration', 'season'],
             through: { attributes: [] } 
         }
     })
@@ -37,7 +37,7 @@ const getAllCountries = async () => {
         subregion: c.dataValues.subregion,
         area: c.dataValues.area,
         population: c.dataValues.population,
-        activity: c.dataValues.activities.map(a => a.name)
+        activity: c.dataValues.activities
         }
     })
 }

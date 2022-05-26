@@ -7,20 +7,23 @@ import style from "./ActivityCreate.module.css"
 function validate(input){
     let errors = {};
     if (!input.name) {
-        errors.name = "Se requiere un nombre";
-    } else if (input.difficulty > 5 || input.difficulty < 1) {
-        errors.difficulty = "La dificultad debe ser entre 1 y 5"
+        errors.name = "Se requiere un nombre !";
+    } else if (!input.difficulty || input.difficulty === "seleccione") {
+        errors.difficulty = "La dificultad debe ser entre 1 y 5 !"
     } else if (!input.duration) {
-        errors.duration = "Se debe especificar duracion"
+        errors.duration = "Se debe especificar duracion en hs !"
     } else if (input.duration > 24 || input.duration <= 0) {
-        errors.duration = "La duracion no puede ser mayor a 24 hs o menor a 0 hs"
+        errors.duration = "La duracion no puede ser mayor a 24 hs o menor a 0 hs !"
+    } else if (!input.season || input.season === "seleccione") {
+        errors.season = "Se debe seleccionar estacion !"
+    } else if (input.countryId.length === 0) {
+        errors.countryId = "Se debe seleccionar pais !"
     }
     return errors;
 };
 
 export default function ActivityCreate() {
     const dispatch = useDispatch()
-    const activities = useSelector((state) => state.activities)
     const countries = useSelector((state) => state.countries)
     const [errors,setErrors] = useState({});
 
@@ -72,10 +75,7 @@ export default function ActivityCreate() {
 
     useEffect(() => {
         dispatch(getActivities());
-    }, []);
-
-    useEffect(() => {
-        dispatch(getCountries());
+        dispatch(getCountries())
     }, []);
 
     const sortedArr = countries.sort(function (a, b) {
@@ -108,28 +108,26 @@ const PRIMAVERA = 'Primavera'
                     onChange={handleChange}
                     />
                     {errors.name && (
-                        <p className='error'>{errors.name}</p>
+                        <p className={style.error}>{errors.name}</p>
                     )}
                 </div>
                 <div>
                     <label>Dificultad:</label>
-                    {/* <select onChange={(e) => handleDifficulty(e)}>
-                        <option value= {input.difficulty}>1</option>
-                        <option value= {input.difficulty}>2</option>
-                        <option value= {input.difficulty}>3</option>
-                        <option value= {input.difficulty}>4</option>
-                        <option value= {input.difficulty}>5</option>
-                    </select>     */}
-                    <input
+                    <select
+                    type= "text"
                     value= {input.difficulty}
                     name= "difficulty"
-                    type="range"
-                    min="1"
-                    max="5"
                     onChange={handleChange}
-                    />
+                    >
+                    <option> seleccione </option>
+                     <option value={1}>1</option>
+                     <option value={2}>2</option>
+                     <option value={3}>3</option>
+                     <option value={4}>4</option>
+                     <option value={5}>5</option>
+                    </select>
                     {errors.difficulty && (
-                        <p className='error'>{errors.difficulty}</p>
+                        <p className={style.error}>{errors.difficulty}</p>
                     )}
                 </div>
                 <div>
@@ -141,7 +139,7 @@ const PRIMAVERA = 'Primavera'
                     onChange={handleChange}
                     />
                     {errors.duration && (
-                        <p className='error'>{errors.duration}</p>
+                        <p className={style.error}>{errors.duration}</p>
                     )}
                 </div>
                 <div>
@@ -152,12 +150,15 @@ const PRIMAVERA = 'Primavera'
                     name= "season"
                     onChange={handleChange}
                     >
-                     <option> Temporada </option>
+                     <option> seleccione </option>
                      <option value={INVIERNO}>Invierno</option>
                      <option value={VERANO}>Verano</option>
                      <option value={OTOÑO}>Otoño</option>
                      <option value={PRIMAVERA}>Primavera</option>
                     </select>
+                    {errors.season && (
+                        <p className={style.error}>{errors.season}</p>
+                    )}
                 </div>
                 <div>
                     <label>Pais:</label>
@@ -176,6 +177,9 @@ const PRIMAVERA = 'Primavera'
                         <option value={c.id}>{c.name}</option>
                     ))}
                 </select>
+                {errors.countryId && (
+                        <p className={style.error}>{errors.countryId}</p>
+                    )}
                 </div>
                 <button type='submit'>Crear</button>
             </form>

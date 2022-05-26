@@ -2,7 +2,8 @@ const initialState = {
     countries: [],
     allCountries: [],
     activities: [],
-    detail: []
+    detail: [],
+    firstMount: true
 }
 
 function rootReducer (state = initialState, action){
@@ -33,19 +34,34 @@ function rootReducer (state = initialState, action){
                 ...state,
             }
         case 'FILTER_BY_CONTINENT':
-            const allCountries = state.allCountries
-            const countriesFiltered = action.payload === 'All' ? allCountries : allCountries.filter(el => el.region === action.payload)
+            let filterCountries = state.allCountries
+            filterCountries = 
+            action.payload.continent !== "all" ? filterCountries.filter(el => el.region === action.payload.continent)
+            : filterCountries;
+            console.log(action.payload.continent)
+            console.log(filterCountries)
+            filterCountries =
+            action.payload.activity === "desactivado" ? filterCountries : action.payload.activity === "all" ? filterCountries.filter(e => (e.activity.length > 0)) : filterCountries.filter(el => { for (let i=0; i<el.activity.length; i++) if (el.activity[i].name === action.payload.activity) return true})
+            console.log(action.payload.activity)
             return {
                 ...state,
-                countries: countriesFiltered
+                countries: filterCountries
             }
-        case 'FILTER_BY_ACTIVITY':
-            const allCountries2 = state.allCountries
-            const activityFiltered = action.payload === 'Todos' ? allCountries2 : allCountries2.filter(el => { for (let i=0; i<el.activity.length; i++) if (el.activity[i] === action.payload) return true})
+            case "SET_FIRST_MOUNT":
                 return {
-                    ...state,
-                    countries: activityFiltered
-                }
+                  ...state,
+                  countries: [],
+                  firstMount: action.payload,
+                };
+
+        // case 'FILTER_BY_ACTIVITY':
+        //     const allCountries2 = state.allCountries
+        //     const activityFiltered = action.payload === 'Todos' ? allCountries2.filter(e => (e.activity.length > 0)) : allCountries2.filter(el => { for (let i=0; i<el.activity.length; i++) if (el.activity[i].name === action.payload) return true})
+        //         return {
+        //             ...state,
+        //             countries: activityFiltered
+        //         }
+
         case 'ORDER_BY_NAME':
             let orderCountries = state.allCountries
             let sortedArr = action.payload === 'asc' ?

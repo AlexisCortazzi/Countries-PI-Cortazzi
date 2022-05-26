@@ -75,3 +75,10 @@ export function orderByName(payload){
         payload
     }
 }
+
+export function setFirstMount(payload) {
+    return {
+      type: "SET_FIRST_MOUNT",
+      payload,
+    };
+  }
