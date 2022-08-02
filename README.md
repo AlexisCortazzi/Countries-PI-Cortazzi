@@ -16,3 +16,10 @@
 - Aprender y practicar el workflow de GIT.
 - Usar y practicar testing.
 
+# Imagenes
+
+![image](https://user-images.githubusercontent.com/92419425/182437976-936fb746-c549-494a-ac0a-b648c07c58c9.png)
+
+![image](https://user-images.githubusercontent.com/92419425/182438283-3e19a927-96b4-406a-8428-619be3865361.png)
+
+![image](https://user-images.githubusercontent.com/92419425/182438331-ed7efde7-8afd-481a-845b-f752dbf59083.png)
