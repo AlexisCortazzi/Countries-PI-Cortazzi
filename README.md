@@ -18,7 +18,7 @@
 
 # Imagenes
 
-![image](https://user-images.githubusercontent.com/92419425/182439590-34c200a5-5324-412e-8ed7-1b50df394ada.png)
+![image](https://user-images.githubusercontent.com/92419425/182440557-c9c03344-a2c1-4191-8f65-1ce482dc3ce6.png)
 
 ![image](https://user-images.githubusercontent.com/92419425/182439925-dd0045ed-bcf0-442f-9911-3bb0c6b18fe5.png)
 
